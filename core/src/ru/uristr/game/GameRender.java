@@ -106,8 +106,8 @@ public class GameRender {
         batch.enableBlending();
 
         drawFly(runTime);
-        drawGrass();
         drawHoneyCombs();
+        drawGrass();
 
         batch.end();
 
@@ -130,13 +130,13 @@ public class GameRender {
 
     private void drawHoneyCombs() {
         batch.draw(honeycombUp, hc1.getX(), hc1.getY(), hc1.getWidth(), hc1.getHeight());
-        batch.draw(honeycombDown, hc1.getX(), hc1.getY() + hc1.getHeight() + 45, hc1.getWidth(), midPointY + 66 - (hc1.getHeight() + 45));
+        batch.draw(honeycombDown, hc1.getX(), hc1.getY()+5 + hc1.getHeight() + 45, hc1.getWidth(), midPointY + 66 - (hc1.getHeight() + 45));
 
         batch.draw(honeycombUp, hc2.getX(), hc2.getY(), hc2.getWidth(), hc2.getHeight());
-        batch.draw(honeycombDown, hc2.getX(), hc2.getY() + hc2.getHeight() + 45, hc2.getWidth(), midPointY + 66 - (hc2.getHeight() + 45));
+        batch.draw(honeycombDown, hc2.getX(), hc2.getY()+5 + hc2.getHeight() + 45, hc2.getWidth(), midPointY + 66 - (hc2.getHeight() + 45));
 
         batch.draw(honeycombUp, hc3.getX(), hc3.getY(), hc3.getWidth(), hc3.getHeight());
-        batch.draw(honeycombDown, hc3.getX(), hc3.getY() + hc3.getHeight() + 45, hc3.getWidth(), midPointY + 66 - (hc3.getHeight() + 45));
+        batch.draw(honeycombDown, hc3.getX(), hc3.getY()+5 + hc3.getHeight() + 45, hc3.getWidth(), midPointY + 66 - (hc3.getHeight() + 45));
 
 
     }

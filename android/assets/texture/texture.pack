@@ -5,9 +5,9 @@ filter: Linear,Linear
 repeat: none
 grass
   rotate: false
-  xy: 2, 607
-  size: 915, 70
-  orig: 915, 70
+  xy: 2, 616
+  size: 915, 61
+  orig: 915, 61
   offset: 0, 0
   index: -1
 bee1
@@ -61,9 +61,9 @@ retry
   index: -1
 background
   rotate: false
-  xy: 342, 361
-  size: 638, 233
-  orig: 638, 233
+  xy: 342, 362
+  size: 638, 234
+  orig: 638, 234
   offset: 0, 0
   index: -1
 bee2

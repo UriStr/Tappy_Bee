@@ -31,9 +31,11 @@ public class ResourseLoader {
         bee2 = new Sprite(atlas.findRegion("bee2"));
         bee3 = new Sprite(atlas.findRegion("bee3"));
         honeycombDown = new Sprite(atlas.findRegion("honeycombDown"));
+        honeycombDown.flip(false, true);
         logo = new Sprite(atlas.findRegion("logo"));
         logo.flip(false, true);
         honeycombUp = new Sprite(atlas.findRegion("honeycombUp"));
+        honeycombUp.flip(false, true);
         gameOver = new Sprite(atlas.findRegion("gameOver"));
         retry = new Sprite(atlas.findRegion("retry"));
         background = new Sprite(atlas.findRegion("background"));
