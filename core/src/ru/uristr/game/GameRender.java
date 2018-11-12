@@ -2,6 +2,7 @@ package ru.uristr.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -11,11 +12,17 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import aurelienribon.tweenengine.Tween;
+import aurelienribon.tweenengine.TweenEquation;
+import aurelienribon.tweenengine.TweenEquations;
+import aurelienribon.tweenengine.TweenManager;
 import ru.uristr.loader.ResourseLoader;
 import ru.uristr.objects.Bee;
 import ru.uristr.objects.Grass;
 import ru.uristr.objects.HoneyComb;
 import ru.uristr.objects.MoveHandler;
+import ru.uristr.tools.Value;
+import ru.uristr.tools.ValueAccessor;
 
 public class GameRender {
 
@@ -29,6 +36,10 @@ public class GameRender {
     private MoveHandler moveHandler;
     private Grass frontGrass, backGrass;
     private HoneyComb hc1, hc2, hc3;
+
+    private TweenManager manager;
+    private Value alpha = new Value();
+    private Color transitionColor;
 
     private Sprite background, grass, beeMid, honeycombUp, honeycombDown, ready, beeLogo,
     gameOver, highScore, scoreBoard, starOn, starOff, retry;
@@ -50,6 +61,9 @@ public class GameRender {
 
         initGameObjects();
         initAssets();
+
+        transitionColor = new Color();
+        prepareTransition(255,255,255, 0.5f);
 
     }
 
@@ -105,11 +119,13 @@ public class GameRender {
         batch.draw(ResourseLoader.background, 0, midPointY + 23, 136, 43);
         batch.enableBlending();
 
-        drawFly(runTime);
+
         drawHoneyCombs();
         drawGrass();
+        drawFly(runTime);
 
         batch.end();
+        drawTransition(delta);
 
     }
 
@@ -141,4 +157,24 @@ public class GameRender {
 
     }
 
+    public void prepareTransition(int r, int g, int b, float duration) {
+        transitionColor.set(r / 255.0f, g / 255.0f, b / 255.0f, 1);
+        alpha.setVal(1);
+        Tween.registerAccessor(Value.class, new ValueAccessor());
+        manager = new TweenManager();
+        Tween.to(alpha, -1, duration).target(0).ease(TweenEquations.easeOutQuad).start(manager);
+    }
+
+    public void drawTransition(float delta) {
+        if (alpha.getVal() > 0) {
+            manager.update(delta);
+            Gdx.gl.glEnable(GL20.GL_BLEND);
+            Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+            shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+            shapeRenderer.setColor(transitionColor.r, transitionColor.g, transitionColor.b, alpha.getVal());
+            shapeRenderer.rect(0, 0, 136, 300);
+            shapeRenderer.end();
+            Gdx.gl.glDisable(GL20.GL_BLEND);
+        }
+    }
 }

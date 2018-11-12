@@ -1,6 +1,10 @@
 package ru.uristr.objects;
 
+import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
+
+import ru.uristr.loader.ResourseLoader;
 
 public class Bee {
 
@@ -8,9 +12,12 @@ public class Bee {
     private Vector2 velocity;
     private Vector2 acceleration;
 
+    private Circle circle;
+
     private float rotation;
     private float width;
     private float height;
+    private boolean isAlive;
 
     public float getX() {
         return position.x;
@@ -32,6 +39,10 @@ public class Bee {
         return height;
     }
 
+    public Circle getCircle() {
+        return circle;
+    }
+
     public void update(float delta) {
         velocity.add(acceleration.cpy().scl(delta));
 
@@ -39,7 +50,14 @@ public class Bee {
             velocity.y = 200;
         }
 
+        if (position.y < -5) {
+            position.y = -5;
+            velocity.y = 0;
+        }
+
         position.add(velocity.cpy().scl(delta));
+
+        circle.set(position.x + 9, position.y + 6, 6.5f);
 
         if (velocity.y < 0) {
             rotation -= 600 * delta;
@@ -58,13 +76,19 @@ public class Bee {
     }
 
     public void  onClick() {
-        velocity.y = -140;
+        if (isAlive) {
+            velocity.y = -140;
+            ResourseLoader.flap.play();
+        }
     }
 
 
     public Bee(float x, float y, float width, float height) {
         this.width = width;
         this.height = height;
+
+        circle = new Circle();
+        isAlive = true;
 
         position = new Vector2(x, y);
         velocity = new Vector2(0, 0);
@@ -76,8 +100,30 @@ public class Bee {
     }
 
     public boolean notFlap() {
-        return velocity.y > 70;
+        return velocity.y > 70 || !isAlive;
     }
 
+    public boolean isAlive() {
+        return isAlive;
+    }
 
+    public void die() {
+        isAlive = false;
+        velocity.y = 0;
+    }
+
+    public void cling() {
+        acceleration.y = 0;
+    }
+
+    public void onRestart(int y) {
+        rotation = 0;
+        position.y = y;
+        velocity.x = 0;
+        velocity.y = 0;
+        acceleration.x = 0;
+        acceleration.y = 460;
+        isAlive = true;
+
+    }
 }

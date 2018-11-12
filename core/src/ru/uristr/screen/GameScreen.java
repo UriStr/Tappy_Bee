@@ -24,6 +24,7 @@ public class GameScreen implements Screen {
 
         world = new GameWorld(midPointX, midPointY);
         renderer = new GameRender(world, (int) gameHeight, midPointX, midPointY);
+        world.setRenderer(renderer);
 
         Gdx.input.setInputProcessor(new InputHandler(world.getBee()));
 

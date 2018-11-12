@@ -10,4 +10,8 @@ public class Grass extends Moving {
 
     }
 
+    public void onRestart(float x, float movSpeed) {
+        position.x = x;
+        velocity.x = movSpeed;
+    }
 }

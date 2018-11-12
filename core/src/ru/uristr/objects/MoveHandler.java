@@ -1,6 +1,7 @@
 package ru.uristr.objects;
 
 import ru.uristr.game.GameWorld;
+import ru.uristr.loader.ResourseLoader;
 
 public class MoveHandler {
     private Grass frontGrass, backGrass;
@@ -43,6 +44,36 @@ public class MoveHandler {
 
     }
 
+    public void stop() {
+        frontGrass.stop();
+        backGrass.stop();
+        hc1.stop();
+        hc2.stop();
+        hc3.stop();
+    }
+
+    private void addScore(int increment) {
+        gameWorld.addScore(increment);
+    }
+
+    public boolean collides(Bee bee) {
+        if (!hc1.isScored() && hc1.getX() + (hc1.getWidth() / 2) < bee.getX() + bee.getWidth()) {
+            addScore(1);
+            hc1.setScored(true);
+            ResourseLoader.coin.play();
+        } else if (!hc2.isScored() && hc2.getX() + (hc2.getWidth() / 2) < bee.getX() + bee.getWidth()) {
+            addScore(1);
+            hc2.setScored(true);
+            ResourseLoader.coin.play();
+        } else if (!hc3.isScored() && hc3.getX() + (hc3.getWidth() / 2) < bee.getX() + bee.getWidth()) {
+            addScore(1);
+            hc3.setScored(true);
+            ResourseLoader.coin.play();
+        }
+
+        return (hc1.collides(bee) || hc2.collides(bee) || hc3.collides(bee));
+    }
+
     public Grass getFrontGrass() {
         return frontGrass;
     }
@@ -61,5 +92,14 @@ public class MoveHandler {
 
     public HoneyComb getHc3() {
         return hc3;
+    }
+
+    public void onRestart() {
+        frontGrass.onRestart(0, MOV_SPEED);
+        backGrass.onRestart(frontGrass.getTailX(), MOV_SPEED);
+        hc1.onRestart(210, MOV_SPEED);
+        hc2.onRestart(hc1.getTailX() + HC_GAP, MOV_SPEED);
+        hc3.onRestart(hc2.getTailX() + HC_GAP, MOV_SPEED);
+
     }
 }
