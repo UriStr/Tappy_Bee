@@ -12,6 +12,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
+import java.util.List;
+import java.util.WeakHashMap;
+
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenEquation;
 import aurelienribon.tweenengine.TweenEquations;
@@ -23,6 +26,8 @@ import ru.uristr.objects.HoneyComb;
 import ru.uristr.objects.MoveHandler;
 import ru.uristr.tools.Value;
 import ru.uristr.tools.ValueAccessor;
+import ru.uristr.ui.InputHandler;
+import ru.uristr.ui.PlayButton;
 
 public class GameRender {
 
@@ -36,6 +41,7 @@ public class GameRender {
     private MoveHandler moveHandler;
     private Grass frontGrass, backGrass;
     private HoneyComb hc1, hc2, hc3;
+    private List<PlayButton> menuButtons;
 
     private TweenManager manager;
     private Value alpha = new Value();
@@ -50,6 +56,7 @@ public class GameRender {
         mWorld = world;
         this.midPointX = midPointX;
         this.midPointY = midPointY;
+        this.menuButtons = ((InputHandler) Gdx.input.getInputProcessor()).getMenuButtons();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(true, 136,gameHeight);
@@ -72,6 +79,7 @@ public class GameRender {
         grass = ResourseLoader.grass;
         beeAnimation = ResourseLoader.beeAnimation;
         beeMid = ResourseLoader.bee2;
+        beeLogo = ResourseLoader.tappyBee;
         honeycombUp = ResourseLoader.honeycombUp;
         honeycombDown = ResourseLoader.honeycombDown;
         ready = ResourseLoader.tapToFly;
@@ -122,11 +130,37 @@ public class GameRender {
 
         drawHoneyCombs();
         drawGrass();
-        drawFly(runTime);
+
+        if (mWorld.isRunning()) {
+            drawFly(runTime);
+            drawScore();
+        } else if (mWorld.isReady()) {
+            drawFly(runTime);
+            drawReady();
+        } else if (mWorld.isMenu()) {
+            drawBeeCentered(runTime);
+            drawMenuIU();
+        } else if (mWorld.isGameOver()) {
+            drawScoreBoard();
+            drawFly(runTime);
+            drawGameOver();
+            drawRetry();
+        } else if (mWorld.isHighScore()) {
+            drawScoreBoard();
+            drawFly(runTime);
+            drawHighScore();
+            drawRetry();
+        }
 
         batch.end();
         drawTransition(delta);
 
+        if (myBee.isAlive()) {
+            music.play();
+            music.isLooping();
+        } else {
+            music.stop();
+        }
     }
 
     private void drawFly(float runTime) {
@@ -176,5 +210,78 @@ public class GameRender {
             shapeRenderer.end();
             Gdx.gl.glDisable(GL20.GL_BLEND);
         }
+    }
+
+    private void drawMenuIU() {
+        batch.draw(beeLogo, midPointX- 48, midPointY - 50, 96, 14);
+
+        for (PlayButton button : menuButtons
+                ) {
+            button.draw(batch);
+        }
+    }
+
+    private void drawScoreBoard() {
+        batch.draw(scoreBoard, 22, midPointY - 15, 10, 10);
+        batch.draw(starOff, 25, midPointY - 15, 10, 10);
+        batch.draw(starOff, 37, midPointY - 15, 10, 10);
+        batch.draw(starOff, 49, midPointY - 15, 10, 10);
+        batch.draw(starOff, 61, midPointY - 15, 10, 10);
+        batch.draw(starOff, 73, midPointY - 15, 10, 10);
+
+        if (mWorld.getScore() > 2) {
+            batch.draw(starOn, 73, midPointY - 15, 10, 10);
+        }
+
+        if (mWorld.getScore() > 17) {
+            batch.draw(starOn, 61, midPointY - 15, 10, 10);
+        }
+
+        if (mWorld.getScore() > 50) {
+            batch.draw(starOn, 49, midPointY - 15, 10, 10);
+        }
+
+        if (mWorld.getScore() > 80) {
+            batch.draw(starOn, 37, midPointY - 15, 10, 10);
+        }
+
+        if (mWorld.getScore() > 120) {
+            batch.draw(starOn, 25, midPointY - 15, 10, 10);
+        }
+
+        int length = ("" + mWorld.getScore()).length();
+        ResourseLoader.whitefont.draw(batch, "" + mWorld.getScore(), 104 - (2 * length), midPointY - 20);
+
+        int length2 = ("" + ResourseLoader.getHighScore()).length();
+        ResourseLoader.whitefont.draw(batch, "" + ResourseLoader.getHighScore(), 104 - (2.5f * length2), midPointY - 3);
+
+    }
+
+    private void drawRetry() {
+        batch.draw(retry, 36, midPointY + 10, 66, 14);
+    }
+
+    private void drawReady() {
+        batch.draw(ready, 36, midPointY - 50, 68, 14);
+    }
+
+    private void drawGameOver() {
+        batch.draw(gameOver, 24, midPointY -50, 92, 14);
+    }
+
+    private void drawHighScore() {
+        batch.draw(highScore, 22, midPointY -50, 96, 14);
+    }
+
+    public void drawScore() {
+        int length = ("" + mWorld.getScore()).length();
+        ResourseLoader.shadow.draw(batch, "" + mWorld.getScore(), 68 - (3 * length), midPointY - 82);
+        ResourseLoader.font.draw(batch, "" + mWorld.getScore(), 68 - (3 * length), midPointY - 83);
+    }
+
+    private void drawBeeCentered(float runTime) {
+        batch.draw((TextureRegion) beeAnimation.getKeyFrame(runTime), 59f, myBee.getY() - 15f, myBee.getWidth() / 2.0f, myBee.getHeight() / 2.0f, myBee.getWidth(), myBee.getHeight(), 1f, 1f, myBee.getRotation());
+
+
     }
 }

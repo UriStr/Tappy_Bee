@@ -10,6 +10,14 @@ import ru.uristr.objects.MoveHandler;
 
 public class GameWorld {
 
+    public int getMidPointX() {
+        return midPointX;
+    }
+
+    public int getMidPointY() {
+        return midPointY;
+    }
+
     private int midPointX;
     private int midPointY;
     private int score = 0;
@@ -54,14 +62,26 @@ public class GameWorld {
         switch (currentState) {
             case READY:
             case MENU:
+                updateReady(delta);
+                break;
+            case RUNNING:
+                updateRunning(delta);
+                break;
+            default:
+                break;
         }
     }
 
     public void updateReady(float delta) {
-        bee.update();
+        bee.updateReady(runTime);
+        moveHandler.updateReady(delta);
     }
 
     public void updateRunning(float delta) {
+        if (delta > 0.15f) {
+            delta = 0.15f;
+        }
+
         bee.update(delta);
         moveHandler.update(delta);
 
@@ -83,6 +103,11 @@ public class GameWorld {
             }
             moveHandler.stop();
             bee.cling();
+            currentState = GameState.GAMEOVER;
+            if (score > ResourseLoader.getHighScore()) {
+                ResourseLoader.setHighScore(score);
+                currentState = GameState.HIGHSCORE;
+            }
         }
 
     }
@@ -125,6 +150,14 @@ public class GameWorld {
 
     public boolean isRunning() {
         return currentState == GameState.RUNNING;
+    }
+
+    public boolean isReady() {
+        return currentState == GameState.READY;
+    }
+
+    public boolean isGameOver() {
+        return currentState == GameState.GAMEOVER;
     }
 
 

@@ -102,4 +102,15 @@ public class MoveHandler {
         hc3.onRestart(hc2.getTailX() + HC_GAP, MOV_SPEED);
 
     }
+
+    public void updateReady(float delta) {
+        frontGrass.update(delta);
+        backGrass.update(delta);
+
+        if (frontGrass.isScrolledLeft()) {
+            frontGrass.reset(backGrass.getTailX());
+        } else if (backGrass.isScrolledLeft()) {
+            backGrass.reset(frontGrass.getTailX());
+        }
+    }
 }

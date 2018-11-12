@@ -18,6 +18,8 @@ public class Bee {
     private float width;
     private float height;
     private boolean isAlive;
+    private float originalY;
+
 
     public float getX() {
         return position.x;
@@ -86,6 +88,7 @@ public class Bee {
     public Bee(float x, float y, float width, float height) {
         this.width = width;
         this.height = height;
+        this.originalY = y;
 
         circle = new Circle();
         isAlive = true;
@@ -125,5 +128,9 @@ public class Bee {
         acceleration.y = 460;
         isAlive = true;
 
+    }
+
+    public void updateReady(float runTime) {
+        position.y = 2 * (float) Math.sin(7 * runTime) + originalY;
     }
 }
