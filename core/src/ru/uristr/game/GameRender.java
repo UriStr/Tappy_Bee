@@ -100,6 +100,7 @@ public class GameRender {
         hc1 = moveHandler.getHc1();
         hc2 = moveHandler.getHc2();
         hc3 = moveHandler.getHc3();
+
     }
 
     public void render(float delta, float runTime) {
@@ -141,13 +142,13 @@ public class GameRender {
             drawBeeCentered(runTime);
             drawMenuIU();
         } else if (mWorld.isGameOver()) {
-            drawScoreBoard();
             drawFly(runTime);
+            drawScoreBoard();
             drawGameOver();
             drawRetry();
         } else if (mWorld.isHighScore()) {
-            drawScoreBoard();
             drawFly(runTime);
+            drawScoreBoard();
             drawHighScore();
             drawRetry();
         }
@@ -161,9 +162,11 @@ public class GameRender {
         } else {
             music.stop();
         }
+
     }
 
     private void drawFly(float runTime) {
+
         if (myBee.notFlap()) {
             batch.draw(beeMid, myBee.getX(), myBee.getY(), myBee.getWidth() / 2.0f, myBee.getHeight() / 2.0f,
                     myBee.getWidth(), myBee.getHeight(), 1, 1, myBee.getRotation());
@@ -222,38 +225,38 @@ public class GameRender {
     }
 
     private void drawScoreBoard() {
-        batch.draw(scoreBoard, 22, midPointY - 15, 10, 10);
-        batch.draw(starOff, 25, midPointY - 15, 10, 10);
-        batch.draw(starOff, 37, midPointY - 15, 10, 10);
-        batch.draw(starOff, 49, midPointY - 15, 10, 10);
-        batch.draw(starOff, 61, midPointY - 15, 10, 10);
-        batch.draw(starOff, 73, midPointY - 15, 10, 10);
+        batch.draw(scoreBoard, 24, midPointY -32, 90, 40);
+        batch.draw(starOff, 27, midPointY - 10, 7, 7);
+        batch.draw(starOff, 35, midPointY - 10, 7, 7);
+        batch.draw(starOff, 43, midPointY - 10, 7, 7);
+        batch.draw(starOff, 51, midPointY - 10, 7, 7);
+        batch.draw(starOff, 59, midPointY - 10, 7, 7);
 
         if (mWorld.getScore() > 2) {
-            batch.draw(starOn, 73, midPointY - 15, 10, 10);
+            batch.draw(starOn, 27, midPointY - 10, 7, 7);
         }
 
         if (mWorld.getScore() > 17) {
-            batch.draw(starOn, 61, midPointY - 15, 10, 10);
+            batch.draw(starOn, 35, midPointY - 10, 7, 7);
         }
 
         if (mWorld.getScore() > 50) {
-            batch.draw(starOn, 49, midPointY - 15, 10, 10);
+            batch.draw(starOn, 43, midPointY - 10, 7, 7);
         }
 
         if (mWorld.getScore() > 80) {
-            batch.draw(starOn, 37, midPointY - 15, 10, 10);
+            batch.draw(starOn, 51, midPointY - 10, 7, 7);
         }
 
         if (mWorld.getScore() > 120) {
-            batch.draw(starOn, 25, midPointY - 15, 10, 10);
+            batch.draw(starOn, 59, midPointY - 10, 7, 7);
         }
 
         int length = ("" + mWorld.getScore()).length();
         ResourseLoader.whitefont.draw(batch, "" + mWorld.getScore(), 104 - (2 * length), midPointY - 20);
 
         int length2 = ("" + ResourseLoader.getHighScore()).length();
-        ResourseLoader.whitefont.draw(batch, "" + ResourseLoader.getHighScore(), 104 - (2.5f * length2), midPointY - 3);
+        ResourseLoader.whitefont.draw(batch, "" + ResourseLoader.getHighScore(), 105 - (2.5f * length2), midPointY - 9);
 
     }
 

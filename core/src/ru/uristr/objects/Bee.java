@@ -48,8 +48,8 @@ public class Bee {
     public void update(float delta) {
         velocity.add(acceleration.cpy().scl(delta));
 
-        if (velocity.y > 200) {
-            velocity.y = 200;
+        if (velocity.y > 120) {
+            velocity.y = 120;
         }
 
         if (position.y < -5) {
@@ -59,7 +59,7 @@ public class Bee {
 
         position.add(velocity.cpy().scl(delta));
 
-        circle.set(position.x + 9, position.y + 6, 6.5f);
+        circle.set(position.x + 14, position.y + 6, 5.5f);
 
         if (velocity.y < 0) {
             rotation -= 600 * delta;
@@ -79,7 +79,7 @@ public class Bee {
 
     public void  onClick() {
         if (isAlive) {
-            velocity.y = -140;
+            velocity.y = -120;
             ResourseLoader.flap.play();
         }
     }
