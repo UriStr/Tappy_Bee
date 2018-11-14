@@ -162,7 +162,6 @@ public class GameRender {
         if (myBee.isAlive()) {
             music.play();
             music.setVolume(0.05f);
-            music.isLooping();
         } else {
            music.stop();
         }
