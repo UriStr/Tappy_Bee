@@ -33,7 +33,7 @@ public class MoveHandler {
         } else if (hc2.isScrolledLeft()) {
             hc2.reset(hc1.getTailX() + HC_GAP);
         } else if (hc3.isScrolledLeft()) {
-            hc2.reset(hc2.getTailX() + HC_GAP);
+            hc3.reset(hc2.getTailX() + HC_GAP);
         }
 
         if (frontGrass.isScrolledLeft()) {

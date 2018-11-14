@@ -125,6 +125,7 @@ public class GameWorld {
     }
 
     public void restart() {
+
         score = 0;
         bee.onRestart(midPointY - 5);
         moveHandler.onRestart();

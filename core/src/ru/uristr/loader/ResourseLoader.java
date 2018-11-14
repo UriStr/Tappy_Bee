@@ -60,7 +60,7 @@ public class ResourseLoader {
         flap = Gdx.audio.newSound(Gdx.files.internal("sounds/flap.wav"));
         coin = Gdx.audio.newSound(Gdx.files.internal("sounds/coin.wav"));
         fall = Gdx.audio.newSound(Gdx.files.internal("sounds/fall.wav"));
-        ResourseLoader.fly = Gdx.audio.newMusic(Gdx.files.internal("sounds/fly.mp3"));
+        ResourseLoader.fly = Gdx.audio.newMusic(Gdx.files.internal("sounds/fly.mp3"));;
 
         //Fonts loader
         font = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));

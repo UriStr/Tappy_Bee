@@ -2,6 +2,7 @@ package ru.uristr.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -51,6 +52,7 @@ public class GameRender {
     gameOver, highScore, scoreBoard, starOn, starOff, retry;
     private Animation beeAnimation;
     private Music music;
+    private Sound test;
 
     public GameRender(GameWorld world, int gameHeight, int midPointX, int midPointY) {
         mWorld = world;
@@ -90,6 +92,7 @@ public class GameRender {
         starOn = ResourseLoader.starOn;
         starOff = ResourseLoader.starOff;
         music = ResourseLoader.fly;
+        test = Gdx.audio.newSound(Gdx.files.internal("sounds/fly.mp3"));
     }
 
     private void initGameObjects() {
@@ -158,9 +161,10 @@ public class GameRender {
 
         if (myBee.isAlive()) {
             music.play();
+            music.setVolume(0.05f);
             music.isLooping();
         } else {
-            music.stop();
+           music.stop();
         }
 
     }
