@@ -4,11 +4,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.Animation;
 
 public class ResourseLoader {
 
@@ -22,7 +22,7 @@ public class ResourseLoader {
     public static BitmapFont font, shadow, whitefont;
     private static Preferences preferences;
 
-    public static void load () {
+    public static void load() {
 
         //Atlas
         atlas = new TextureAtlas(Gdx.files.internal("texture/texture.pack"), true);
@@ -60,7 +60,8 @@ public class ResourseLoader {
         flap = Gdx.audio.newSound(Gdx.files.internal("sounds/flap.wav"));
         coin = Gdx.audio.newSound(Gdx.files.internal("sounds/coin.wav"));
         fall = Gdx.audio.newSound(Gdx.files.internal("sounds/fall.wav"));
-        ResourseLoader.fly = Gdx.audio.newMusic(Gdx.files.internal("sounds/fly.mp3"));;
+        ResourseLoader.fly = Gdx.audio.newMusic(Gdx.files.internal("sounds/fly.mp3"));
+        ;
 
         //Fonts loader
         font = new BitmapFont(Gdx.files.internal("fonts/text.fnt"));
@@ -84,7 +85,6 @@ public class ResourseLoader {
     public static int getHighScore() {
         return preferences.getInteger("highScore");
     }
-
 
     public static void dispose() {
         atlas.dispose();

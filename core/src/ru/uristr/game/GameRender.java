@@ -6,7 +6,6 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,10 +13,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.List;
-import java.util.WeakHashMap;
 
 import aurelienribon.tweenengine.Tween;
-import aurelienribon.tweenengine.TweenEquation;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 import ru.uristr.loader.ResourseLoader;
@@ -43,13 +40,11 @@ public class GameRender {
     private Grass frontGrass, backGrass;
     private HoneyComb hc1, hc2, hc3;
     private List<PlayButton> menuButtons;
-
     private TweenManager manager;
     private Value alpha = new Value();
     private Color transitionColor;
-
     private Sprite background, grass, beeMid, honeycombUp, honeycombDown, ready, beeLogo,
-    gameOver, highScore, scoreBoard, starOn, starOff, retry;
+            gameOver, highScore, scoreBoard, starOn, starOff, retry;
     private Animation beeAnimation;
     private Music music;
     private Sound test;
@@ -61,7 +56,7 @@ public class GameRender {
         this.menuButtons = ((InputHandler) Gdx.input.getInputProcessor()).getMenuButtons();
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(true, 136,gameHeight);
+        camera.setToOrtho(true, 136, gameHeight);
 
         batch = new SpriteBatch();
         batch.setProjectionMatrix(camera.combined);
@@ -72,7 +67,7 @@ public class GameRender {
         initAssets();
 
         transitionColor = new Color();
-        prepareTransition(255,255,255, 0.5f);
+        prepareTransition(255, 255, 255, 0.5f);
 
     }
 
@@ -163,7 +158,7 @@ public class GameRender {
             music.play();
             music.setVolume(0.05f);
         } else {
-           music.stop();
+            music.stop();
         }
 
     }
@@ -186,13 +181,13 @@ public class GameRender {
 
     private void drawHoneyCombs() {
         batch.draw(honeycombUp, hc1.getX(), hc1.getY(), hc1.getWidth(), hc1.getHeight());
-        batch.draw(honeycombDown, hc1.getX(), hc1.getY()+5 + hc1.getHeight() + 45, hc1.getWidth(), midPointY + 66 - (hc1.getHeight() + 45));
+        batch.draw(honeycombDown, hc1.getX(), hc1.getY() + 5 + hc1.getHeight() + 45, hc1.getWidth(), midPointY + 66 - (hc1.getHeight() + 45));
 
         batch.draw(honeycombUp, hc2.getX(), hc2.getY(), hc2.getWidth(), hc2.getHeight());
-        batch.draw(honeycombDown, hc2.getX(), hc2.getY()+5 + hc2.getHeight() + 45, hc2.getWidth(), midPointY + 66 - (hc2.getHeight() + 45));
+        batch.draw(honeycombDown, hc2.getX(), hc2.getY() + 5 + hc2.getHeight() + 45, hc2.getWidth(), midPointY + 66 - (hc2.getHeight() + 45));
 
         batch.draw(honeycombUp, hc3.getX(), hc3.getY(), hc3.getWidth(), hc3.getHeight());
-        batch.draw(honeycombDown, hc3.getX(), hc3.getY()+5 + hc3.getHeight() + 45, hc3.getWidth(), midPointY + 66 - (hc3.getHeight() + 45));
+        batch.draw(honeycombDown, hc3.getX(), hc3.getY() + 5 + hc3.getHeight() + 45, hc3.getWidth(), midPointY + 66 - (hc3.getHeight() + 45));
 
 
     }
@@ -219,7 +214,7 @@ public class GameRender {
     }
 
     private void drawMenuIU() {
-        batch.draw(beeLogo, midPointX- 48, midPointY - 50, 96, 14);
+        batch.draw(beeLogo, midPointX - 48, midPointY - 50, 96, 14);
 
         for (PlayButton button : menuButtons
                 ) {
@@ -228,7 +223,7 @@ public class GameRender {
     }
 
     private void drawScoreBoard() {
-        batch.draw(scoreBoard, 24, midPointY -32, 90, 40);
+        batch.draw(scoreBoard, 24, midPointY - 32, 90, 40);
         batch.draw(starOff, 27, midPointY - 10, 7, 7);
         batch.draw(starOff, 35, midPointY - 10, 7, 7);
         batch.draw(starOff, 43, midPointY - 10, 7, 7);
@@ -272,11 +267,11 @@ public class GameRender {
     }
 
     private void drawGameOver() {
-        batch.draw(gameOver, 24, midPointY -50, 92, 14);
+        batch.draw(gameOver, 24, midPointY - 50, 92, 14);
     }
 
     private void drawHighScore() {
-        batch.draw(highScore, 22, midPointY -50, 96, 14);
+        batch.draw(highScore, 22, midPointY - 50, 96, 14);
     }
 
     public void drawScore() {

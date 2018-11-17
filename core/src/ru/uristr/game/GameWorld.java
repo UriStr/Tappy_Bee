@@ -1,6 +1,5 @@
 package ru.uristr.game;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 
@@ -22,9 +21,6 @@ public class GameWorld {
     private int midPointY;
     private int score = 0;
     private float runTime = 0;
-
-
-
     private Bee bee;
     private MoveHandler moveHandler;
     private Rectangle ground;
@@ -33,14 +29,6 @@ public class GameWorld {
 
     public enum GameState {
         MENU, READY, RUNNING, GAMEOVER, HIGHSCORE
-    }
-
-    public int getScore() {
-        return score;
-    }
-
-    public void addScore(int increment) {
-        score += increment;
     }
 
     public GameWorld(int midPointX, int midPointY) {
@@ -54,6 +42,14 @@ public class GameWorld {
 
         ground = new Rectangle(0, midPointY + 66, 137, 11);
 
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void addScore(int increment) {
+        score += increment;
     }
 
     public void update(float delta) {
@@ -91,7 +87,7 @@ public class GameWorld {
 
 
             ResourseLoader.fall.play();
-            renderer.prepareTransition(255,255,255,0.3f);
+            renderer.prepareTransition(255, 255, 255, 0.3f);
             currentState = GameState.GAMEOVER;
             highScore();
         }
@@ -166,10 +162,5 @@ public class GameWorld {
     public boolean isGameOver() {
         return currentState == GameState.GAMEOVER;
     }
-
-
-
-
-
 
 }

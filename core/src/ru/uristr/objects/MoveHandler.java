@@ -1,14 +1,13 @@
 package ru.uristr.objects;
 
-import ru.uristr.game.GameWorld;
-import ru.uristr.loader.ResourseLoader;
+        import ru.uristr.game.GameWorld;
+        import ru.uristr.loader.ResourseLoader;
 
 public class MoveHandler {
     private Grass frontGrass, backGrass;
-    private  HoneyComb hc1, hc2, hc3;
+    private HoneyComb hc1, hc2, hc3;
     public static final int MOV_SPEED = -59;
     public static final int HC_GAP = 60;
-
     private GameWorld gameWorld;
 
     public MoveHandler(GameWorld gameWorld, float yPos) {

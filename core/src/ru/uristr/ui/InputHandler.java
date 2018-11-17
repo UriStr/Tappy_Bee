@@ -17,10 +17,6 @@ public class InputHandler implements InputProcessor {
     private float scaleFactorX;
     private float scaleFactorY;
 
-    public GameWorld getMyWorld() {
-        return myWorld;
-    }
-
     public InputHandler(GameWorld myWorld, float scaleFactorX, float scaleFactorY) {
         this.myWorld = myWorld;
         this.scaleFactorX = scaleFactorX;
@@ -112,5 +108,9 @@ public class InputHandler implements InputProcessor {
 
     private int scaleY(int screenY) {
         return (int) (screenY / scaleFactorY);
+    }
+
+    public GameWorld getMyWorld() {
+        return myWorld;
     }
 }

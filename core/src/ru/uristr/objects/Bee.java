@@ -1,7 +1,6 @@
 package ru.uristr.objects;
 
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Vector2;
 
 import ru.uristr.loader.ResourseLoader;
@@ -11,15 +10,25 @@ public class Bee {
     private Vector2 position;
     private Vector2 velocity;
     private Vector2 acceleration;
-
     private Circle circle;
-
     private float rotation;
     private float width;
     private float height;
     private boolean isAlive;
     private float originalY;
 
+    public Bee(float x, float y, float width, float height) {
+        this.width = width;
+        this.height = height;
+        this.originalY = y;
+
+        circle = new Circle();
+        isAlive = true;
+
+        position = new Vector2(x, y);
+        velocity = new Vector2(0, 0);
+        acceleration = new Vector2(0, 460);
+    }
 
     public float getX() {
         return position.x;
@@ -77,25 +86,11 @@ public class Bee {
         }
     }
 
-    public void  onClick() {
+    public void onClick() {
         if (isAlive) {
             velocity.y = -120;
             ResourseLoader.flap.play();
         }
-    }
-
-
-    public Bee(float x, float y, float width, float height) {
-        this.width = width;
-        this.height = height;
-        this.originalY = y;
-
-        circle = new Circle();
-        isAlive = true;
-
-        position = new Vector2(x, y);
-        velocity = new Vector2(0, 0);
-        acceleration = new Vector2(0, 460);
     }
 
     public boolean isFalling() {

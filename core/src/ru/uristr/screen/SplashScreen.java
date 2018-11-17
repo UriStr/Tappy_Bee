@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
 import aurelienribon.tweenengine.TweenCallback;
-import aurelienribon.tweenengine.TweenEquation;
 import aurelienribon.tweenengine.TweenEquations;
 import aurelienribon.tweenengine.TweenManager;
 import ru.uristr.TappyBee;
@@ -25,25 +24,6 @@ public class SplashScreen implements Screen {
 
     public SplashScreen(TappyBee game) {
         this.game = game;
-    }
-
-    @Override
-
-    public void show() {
-        sprite = new Sprite(ResourseLoader.logo);
-        sprite.setColor(1, 1, 1, 0);
-
-
-        float width = Gdx.graphics.getWidth();
-        float height = Gdx.graphics.getHeight();
-        float desireWidth = width * 0.7f;
-        float scale = desireWidth / sprite.getWidth();
-
-        sprite.setSize(sprite.getWidth() * scale, sprite.getHeight() * scale);
-        sprite.setPosition((width /2) - (sprite.getWidth() /2 ), (height / 2) - (sprite.getHeight() / 2));
-
-        setupTween();
-        batch = new SpriteBatch();
     }
 
     private void setupTween() {
@@ -63,6 +43,24 @@ public class SplashScreen implements Screen {
                 .setCallback(callback).setCallbackTriggers(TweenCallback.COMPLETE)
                 .start(manager);
 
+    }
+
+    @Override
+    public void show() {
+        sprite = new Sprite(ResourseLoader.logo);
+        sprite.setColor(1, 1, 1, 0);
+
+
+        float width = Gdx.graphics.getWidth();
+        float height = Gdx.graphics.getHeight();
+        float desireWidth = width * 0.7f;
+        float scale = desireWidth / sprite.getWidth();
+
+        sprite.setSize(sprite.getWidth() * scale, sprite.getHeight() * scale);
+        sprite.setPosition((width / 2) - (sprite.getWidth() / 2), (height / 2) - (sprite.getHeight() / 2));
+
+        setupTween();
+        batch = new SpriteBatch();
     }
 
     @Override
